@@ -14,6 +14,7 @@ background-image: url("vilafernando.webp");
            calc(env(safe-area-inset-bottom, 0) + 24px);
   display: flex;
   align-items: center;
+  opacity: 0.4;
 }
 
 .hero__overlay {
