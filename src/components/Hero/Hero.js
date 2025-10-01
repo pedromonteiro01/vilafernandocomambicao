@@ -17,7 +17,7 @@ export default function Hero({
   const formattedTitle = (
     <>
       Vila Fernando Com Ambição{" "}
-      <span className="hero__highlight">Vai Ganhar</span>
+      <span className="hero__highlight">Vai Ganhar!</span>
     </>
   );
 
