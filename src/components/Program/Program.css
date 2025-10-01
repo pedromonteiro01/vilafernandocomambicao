@@ -1,0 +1,224 @@
+.program {
+  position: relative;
+  isolation: isolate;
+  padding-block: clamp(32px, 6vw, 72px);
+  color: #0b1220;
+  background: #f6f8fb;
+}
+
+/* fundo decorativo suave */
+.program__bg {
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(60% 50% at 10% 10%, rgba(255,255,255,0.9), transparent 60%),
+    radial-gradient(50% 50% at 90% 0%, rgba(31,92,255,0.10), transparent 70%),
+    radial-gradient(60% 60% at 100% 80%, rgba(255,153,0,0.10), transparent 70%);
+  z-index: -1;
+}
+
+.program__wrap {
+  width: min(1200px, 92vw);
+  margin-inline: auto;
+  display: grid;
+  grid-template-columns: 280px 1fr;
+  gap: clamp(16px, 3vw, 32px);
+}
+
+/* navegação lateral */
+.program__nav {
+  position: sticky;
+  top: 16px;
+  align-self: start;
+}
+
+.program__nav ul {
+  margin: 12px 0 0;
+  padding: 0;
+  list-style: none;
+  display: grid;
+  gap: 10px;
+}
+
+.program__anchor {
+  display: block;
+  padding: 12px 14px;
+  text-decoration: none;
+  color: #0b1220;
+
+  /* sem bordas redondas */
+  border-radius: 0;
+
+  /* estilo glass/futurista */
+  background: rgba(255, 255, 255, 0.85);
+  border: 1px solid #dce4f4;
+  box-shadow:
+    0 4px 12px rgba(13, 35, 67, 0.06),
+    inset 0 1px 0 rgba(255,255,255,0.6);
+
+  font-weight: 600;
+  font-size: 15px;
+  letter-spacing: 0.01em;
+  transition: all 0.2s ease;
+}
+
+/* efeito ao passar o rato */
+.program__anchor:hover {
+  background: #fff;
+  color: #2a5bff;
+  border-color: #2a5bff;
+  box-shadow:
+    0 6px 18px rgba(13, 35, 67, 0.12),
+    0 0 0 1px rgba(42,91,255,0.25);
+  transform: translateX(3px); /* move ligeiramente à direita */
+}
+
+/* link ativo (quando navegas para uma secção) */
+.program__anchor:focus,
+.program__anchor:target,
+.program__anchor[aria-current="true"] {
+  background: linear-gradient(90deg, #2a5bff1a, transparent);
+  border-left: 3px solid #2a5bff;
+  padding-left: 11px; /* compensa a borda */
+}
+
+.program__content { min-width: 0; }
+
+/* header da secção + logos no topo direito */
+.program__header {
+  margin-bottom: clamp(12px, 2vw, 24px);
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 16px;
+}
+
+.program__headline {
+  margin: 0;
+  font-size: clamp(26px, 4.6vw, 44px);
+  line-height: 1.05;
+  letter-spacing: -0.02em;
+}
+
+.program__sub {
+  margin: 6px 0 0;
+  color: #3b4962;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: .06em;
+}
+
+.program__logos {
+  display: flex;
+  gap: 12px;
+  align-items: center;
+}
+
+.program__logos img {
+  height: 46px;
+  width: auto;
+  display: block;
+}
+
+/* ─── cards (futurista, cantos retos, com imagem maior) ─────────────────── */
+.program__grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0,1fr));
+  gap: clamp(18px, 2.6vw, 28px);
+}
+
+.program__card {
+  border-radius: 0;
+  background: linear-gradient(180deg, rgba(255,255,255,0.92), rgba(246,248,251,0.92));
+  border: 1px solid #e6ecf9;
+  box-shadow:
+    0 14px 30px rgba(13,35,67,0.08),
+    inset 0 1px 0 rgba(255,255,255,0.8);
+  position: relative;
+  padding: clamp(18px, 2.4vw, 24px);
+  overflow: clip;
+}
+
+/* linhas decorativas */
+.program__card::before,
+.program__card::after {
+  content: "";
+  position: absolute;
+  pointer-events: none;
+}
+.program__card::before {
+  left: 0; right: 0; top: 0; height: 2px;
+  background: linear-gradient(90deg, #2a5bff, rgba(42,91,255,0));
+  opacity: .8;
+}
+.program__card::after {
+  right: 0; bottom: 0; width: 46px; height: 46px;
+  background:
+    linear-gradient(0deg, rgba(42,91,255,.45), rgba(42,91,255,0)) 100% 100% / 2px 100% no-repeat,
+    linear-gradient(90deg, rgba(42,91,255,.45), rgba(42,91,255,0)) 100% 100% / 100% 2px no-repeat;
+  opacity: .9;
+}
+
+.program__card:hover {
+  transform: translateY(-2px);
+  box-shadow:
+    0 18px 36px rgba(13,35,67,0.12),
+    0 0 0 1px rgba(42,91,255,0.18),
+    0 6px 18px rgba(42,91,255,0.15);
+}
+
+/* ícone maior, sem fundo */
+.program__icon {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+}
+.program__icon img {
+  height: 40px;   /* aumentado */
+  width: 40px;
+  object-fit: contain;
+  display: block;
+}
+
+/* título limitado em largura para não passar por trás do ícone */
+.program__title {
+  margin: 0 0 10px 0;
+  font-size: clamp(18px, 2.2vw, 22px);
+  font-weight: 800;
+  letter-spacing: .02em;
+  max-width: calc(100% - 60px); /* reserva espaço para o ícone */
+}
+
+.program__list {
+  margin: 0;
+  padding-left: 18px;
+  display: grid;
+  gap: 7px;
+}
+
+.program__top {
+  position: absolute;
+  right: 12px;
+  bottom: 10px;
+  font-size: 12px;
+  text-decoration: none;
+  color: #2a5bff;
+  padding-bottom: 1px;
+  border-bottom: 1px dashed rgba(42,91,255,.6);
+}
+.program__top:hover { border-bottom-style: solid; }
+
+/* responsivo */
+@media (max-width: 980px) {
+  .program__wrap { grid-template-columns: 1fr; }
+  .program__nav { position: static; order: 2; }
+  .program__grid { grid-template-columns: 1fr; }
+}
+
+@media (max-width: 720px) {
+  .program__header {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+  .program__logos { margin-top: 12px; }
+}
