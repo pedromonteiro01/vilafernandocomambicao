@@ -117,7 +117,7 @@
 }
 
 .program__logos img {
-  height: 46px;
+  height: 32px;
   width: auto;
   display: block;
 }
@@ -223,4 +223,15 @@
     align-items: flex-start;
   }
   .program__logos { margin-top: 12px; }
+
+  .program__header {
+    flex-direction: column;       /* coloca elementos em coluna */
+    align-items: flex-start;
+  }
+
+  /* 🔥 inverter ordem no mobile */
+  .program__header > .program__logos {
+    order: -1;                    /* logos vêm primeiro */
+    margin-bottom: 12px;
+  }
 }
