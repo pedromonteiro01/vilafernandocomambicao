@@ -91,10 +91,7 @@ const sections = [
   },
 ];
 
-export default function Program({
-  headline = "Programa Eleitoral",
-  subheadline = "Vila Fernando com ambição",
-}) {
+export default function Program() {
   return (
     <section id="programa" className="program">
       <div className="program__bg" aria-hidden="true" />
@@ -115,8 +112,8 @@ export default function Program({
         <div className="program__content">
           <header className="program__header">
             <div>
-              <h2 className="program__headline">{headline}</h2>
-              <p className="program__sub">{subheadline}</p>
+              <h2 className="program__headline">Programa Eleitoral</h2>
+              <p className="program__sub">Vila Fernando com ambição</p>
             </div>
 
             <div className="program__logos">
