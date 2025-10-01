@@ -102,7 +102,7 @@ export default function AnnouncementModal() {
         <header className="announce__header">
           <span className="announce__eyebrow">Importante</span>
           <h2 id="announce-title" className="announce__title">
-            Compromisso por Vila Fernando
+            Lanche Convívio
           </h2>
           <p id="announce-desc" className="announce__desc">
             Conheça as nossas propostas e deixe-nos a sua sugestão. A sua opinião
