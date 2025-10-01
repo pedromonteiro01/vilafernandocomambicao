@@ -9,6 +9,10 @@
   place-items: center;
 }
 
+.announce__dialog:focus {
+  outline: none;
+}
+
 /* Backdrop com fade */
 .announce__backdrop {
   position: absolute;
