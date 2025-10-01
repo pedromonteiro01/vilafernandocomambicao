@@ -84,7 +84,8 @@
 
 .hero__highlight {
   color: #FF6500;
-  font-family: 'Permanent Marker', cursive;
+    font-family: "Shadows Into Light", cursive;
+
   font-size: clamp(28px, 5vw, 64px);
   font-weight: 400;
   letter-spacing: 1px;
