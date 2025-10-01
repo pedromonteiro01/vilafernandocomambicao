@@ -23,10 +23,10 @@ const sections = [
       "Implementar um plano regular de limpeza e manutenção de caminhos;",
       "Recuperar e conservar fontes, tanques, lavadouros e pequenos monumentos da freguesia, preservando a história e identidade local;",
       "Manutenção contínua dos edifícios públicos sob responsabilidade da Junta;",
-      "Diligenciar, junto de quem de direito, a intervenção urgente no rio Noéme;",
-      "Potenciar o espaço da ribeira com a criação do projeto “A Ribeira é nossa”;",
-      "Criação de um Parque Intergeracional para todas as idades;",
-      "Dotar os espaços da freguesia (usados para eventos sociais) com infraestruturas adequadas."
+      "Diligenciar e exigir, junto de quem de direito, a intervenção urgente no rio Noéme;",
+      "Potenciar o espaço adjacente à ribeira com a criação do projeto “A Ribeira é nossa”;",
+      "Criação de um Parque (ESPAÇO) Intergeracional para todas as idades;",
+      "Dotar os espaços da freguesia que, normalmente, são usados para eventos sociais com infraestruturas adequadas ao desenvolvimento dessas atividades."
     ],
     img: iconPublico,
   },
@@ -34,9 +34,9 @@ const sections = [
     id: "apoio-social",
     title: "Apoio Social, Combate ao Isolamento, Saúde e Envelhecimento com Qualidade",
     items: [
-      "Projetos que preservem as pessoas nos seus ambientes (casa/comunidade), combatendo isolamento e promovendo o convívio;",
-      "Dar corpo ao projeto: “Juntos pela Vida / Cuidar / +Vida e +Saber / +Solidão +Atenção +Atividade Pais e Filhos/Avós e Netos VF – Tempo para Cuidar e Viver Melhor”;",
-      "Criar o “Espaço do Utente” de apoio a pessoas mais vulneráveis;",
+      "Implementação de projetos que contribuam para preservar as pessoas nos seus ambientes (casa/comunidade), combatendo isolamento e fomentando a sua participação na vida comunitária e o convívio social;",
+      "Dar corpo ao projeto: “Juntos pela Vida / Cuidar+ / +Vida e +Saber / -Solidão +Atenção +Atividade Pais e Filhos/Avós e Netos VF - Tempo para Cuidar e Viver Melhor”;",
+      "Criar o “Espaço do Utente” de apoio a todas as pessoas mais vulneráveis;",
       "Lutar pela manutenção do consultório médico na freguesia;",
       "Apoiaremos em tudo o que for necessário, para que o lar seja uma realidade."
     ],
@@ -49,8 +49,8 @@ const sections = [
       "Apoiar e valorizar agricultores e produtores locais;",
       "Desenvolver rotas de turismo rural;",
       "Atrair investimentos para desenvolver a freguesia;",
-      "Apoio técnico a pequenos produtores e empreendedores;",
-      "Envolvimento dos empresários locais no desenvolvimento de projetos dinamizadores;",
+      "Apoio técnico a pequenos produtores e empreendedores da freguesia;",
+      "Envolvimento dos empresários locais no desenvolvimento de projetos catalisadores para a freguesia;",
       "Combate ao despovoamento."
     ],
     img: iconEconomia,
@@ -59,10 +59,10 @@ const sections = [
     id: "educacao",
     title: "Educação, Cultura e Juventude",
     items: [
-      "Providenciar manutenção e funcionamento da escola;",
+      "Providenciar todo o apoio à manutenção e funcionamento da escola;",
       "Instituir prémios de mérito escolar anuais;",
-      "Criar atividades para a juventude;",
-      "Apoiar festas anuais, atividades religiosas e eventos culturais;",
+      "Criar a agenda cultural da aldeia;",
+      "Apoiar as festas anuais, atividades religiosas e eventos culturais;",
       "Criar o espaço “Vila Fernando com Memória” para recolha de histórias.",
       "Envolver os jovens em programas de voluntariado de apoio a idosos, proteção ambiental e programas de intercâmbio com outras freguesias;",
       "Promover a criação do Conselho Jovem da Freguesia."
@@ -74,8 +74,8 @@ const sections = [
     title: "Ambiente e Sustentabilidade",
     items: [
       "Garantir a limpeza e requalificação de espaços verdes;",
-      "Reforçar a rede de ecopontos e a recolha seletiva;",
-      "Plantar, anualmente, com envolvimento da comunidade, árvores autóctones, criando zonas verdes de lazer."
+      "Reforçar a rede de ecopontos e recolha seletiva;",
+      "Plantar, anualmente, com envolvimento da comunidade, árvores autóctones, com criação de zonas verdes de lazer."
     ],
     img: iconAmbiente,
   },
@@ -85,7 +85,7 @@ const sections = [
     items: [
       "Valorizar todas as associações locais como parceiras no desenvolvimento e dinamização da freguesia;",
       "Envolver a escola e os jovens em projetos de cidadania ativa;",
-      "Manter a informação pertinente atualizada nas redes sociais e no site da freguesia."
+      "Manter a informação pertinente atualizada nas redes sociais e site da freguesia."
     ],
     img: iconGovernacao,
   },

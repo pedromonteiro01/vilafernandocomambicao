@@ -1,6 +1,5 @@
 import React from "react";
 import "./Hero.css";
-import vila from './vilafernando.jpg';
 
 export default function Hero({
   buttonText = "Saber mais",
