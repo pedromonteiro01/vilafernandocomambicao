@@ -53,17 +53,17 @@ export default function ContactForm() {
       });
 
       if (res.ok) {
-        toast.success("Mensagem enviada! Obrigado pelo contacto.");
+        toast.success("Mensagem enviada! Obrigado.");
         setForm({ name: "", phone: "", message: "" }); // limpa
       } else {
         const data = await res.json().catch(() => ({}));
         const msg =
           data?.errors?.[0]?.message ||
-          "Não foi possível enviar. Tenta novamente.";
+          "Não foi possível enviar. Tente novamente.";
         toast.error(msg);
       }
     } catch (err) {
-      toast.error("Falha de rede. Verifica a ligação e tenta de novo.");
+      toast.error("Falha de rede. Verifique a ligação e tente de novo.");
     } finally {
       setSubmitting(false);
     }
