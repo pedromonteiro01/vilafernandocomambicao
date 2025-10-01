@@ -3,10 +3,17 @@ import "./Hero.css";
 import vila from './vilafernando.jpg';
 
 export default function Hero({
-  onButtonClick = () => alert("Clicado!"),
   buttonText = "Saber mais",
   title = "Pela Freguesia de Vila Fernando",
 }) {
+
+  const handleScroll = () => {
+    const target = document.getElementById("programa");
+    if (target) {
+      target.scrollIntoView({ behavior: "smooth" });
+    }
+  };
+
   return (
     <section
       className="hero"
@@ -19,7 +26,7 @@ export default function Hero({
         <h1 className="hero__title">{title}</h1>
 
         <div className="hero__action">
-          <button className="hero__button" onClick={onButtonClick}>
+          <button className="hero__button" onClick={handleScroll}>
             {buttonText}
           </button>
         </div>
