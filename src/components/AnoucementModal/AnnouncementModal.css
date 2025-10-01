@@ -1,0 +1,205 @@
+/* src/components/AnnouncementModal/AnnouncementModal.css */
+
+/* Overlay / root */
+.announce {
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  display: grid;
+  place-items: center;
+}
+
+/* Backdrop com fade */
+.announce__backdrop {
+  position: absolute;
+  inset: 0;
+  background: rgba(11, 18, 32, 0.55);
+  backdrop-filter: blur(2px);
+  opacity: 0;
+  animation: backdrop-in 280ms ease-out forwards;
+}
+
+/* Janela / dialog */
+.announce__dialog {
+  position: relative;
+  width: min(720px, 92vw);
+  background: #fff;
+  border: 1px solid #e7ebf3;
+  box-shadow: 0 28px 80px rgba(0,0,0,0.22);
+  overflow: hidden;
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 0;
+
+  /* animação de entrada */
+  will-change: transform, opacity;
+  transform-origin: center;
+  animation: modal-in 420ms cubic-bezier(.22,1,.36,1) both;
+}
+
+/* Estados de fecho (animação de saída) */
+.announce--closing .announce__backdrop {
+  animation: backdrop-out 220ms ease-in forwards;
+}
+.announce--closing .announce__dialog {
+  animation: modal-out 220ms cubic-bezier(.55,.06,.68,.19) both;
+}
+
+/* Botão fechar */
+.announce__close {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  appearance: none;
+  border: none;
+  background: #fff;
+  color: #0b1220;
+  width: 36px; height: 36px;
+  border-radius: 50%;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.12);
+  cursor: pointer;
+  font-size: 16px;
+}
+
+.announce__media {
+  width: 100%;
+  max-height: 60vh;             /* não deixa a imagem ocupar todo o ecrã */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(135deg, #f6f8fb, #eceff4); /* fundo suave */
+  padding: 12px;                /* espaço interno em torno da imagem */
+}
+
+.announce__media img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;          /* mostra a imagem completa */
+  object-position: center;
+  display: block;
+}
+
+/* alturas responsivas */
+@media (min-width: 900px) {
+  .announce__media { height: 420px; }
+}
+@media (max-width: 720px) {
+  .announce__media { height: 280px; }
+}
+@media (max-width: 520px) {
+  .announce__media { height: 220px; }
+}
+
+/* Texto */
+.announce__header {
+  padding: 18px clamp(16px, 3vw, 28px) 0;
+  text-align: left;
+}
+.announce__eyebrow {
+  display: inline-block;
+  font-size: 12px;
+  font-weight: 800;
+  letter-spacing: .08em;
+  text-transform: uppercase;
+  color: #FF6500;
+  background: rgba(255,101,0,0.12);
+  border: 1px solid rgba(255,101,0,0.25);
+  padding: 4px 8px;
+  border-radius: 999px;
+  margin-bottom: 8px;
+}
+.announce__title {
+  margin: 6px 0 6px;
+  font-weight: 800;
+  font-size: clamp(20px, 3.8vw, 30px);
+  color: #0b1220;
+}
+.announce__desc {
+  margin: 0;
+  color: #3b4962;
+  font-size: clamp(14px, 2.4vw, 17px);
+  max-width: 65ch;
+}
+
+/* Ações */
+.announce__actions {
+  display: flex;
+  gap: 12px;
+  padding: 16px clamp(16px, 3vw, 28px) 8px;
+  flex-wrap: wrap;
+}
+.announce__btn {
+  appearance: none;
+  border: none;
+  cursor: pointer;
+  padding: 10px 14px;
+  font-size: 15px;
+  font-weight: 800;
+  letter-spacing: .01em;
+}
+
+/* Botão primário com transition suave */
+.announce__btn--primary {
+  color: #fff;
+  background: #FF6500;
+  box-shadow: 0 10px 24px rgba(0,0,0,0.12);
+  border: 1px solid transparent;
+  transition:
+    background-color 0.25s ease,
+    color 0.25s ease,
+    border-color 0.25s ease,
+    box-shadow 0.25s ease;
+}
+.announce__btn--primary:hover {
+  color: #FF6500;
+  background: #fff;
+  border-color: #ccc;
+  box-shadow: 0 10px 24px rgba(0,0,0,0.18);
+}
+
+/* Botão secundário */
+.announce__btn--ghost {
+  color: #FF6500;
+  background: #fff;
+  border: 1px solid #ccc;
+}
+
+/* Nota */
+.announce__footnote {
+  margin: 0;
+  padding: 6px clamp(16px, 3vw, 28px) 18px;
+  color: #6b7894;
+  font-size: 12px;
+  border-top: 1px dashed #eef1f6;
+}
+
+/* ===================== */
+/*     Keyframes         */
+/* ===================== */
+@keyframes backdrop-in {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+@keyframes backdrop-out {
+  from { opacity: 1; }
+  to   { opacity: 0; }
+}
+@keyframes modal-in {
+  0%   { opacity: 0; transform: translateY(24px) scale(.985); }
+  60%  { opacity: 1; transform: translateY(0) scale(1.005); }
+  100% { opacity: 1; transform: translateY(0) scale(1); }
+}
+@keyframes modal-out {
+  0%   { opacity: 1; transform: translateY(0) scale(1); }
+  100% { opacity: 0; transform: translateY(10px) scale(.985); }
+}
+
+/* Respeita motion-reduce */
+@media (prefers-reduced-motion: reduce) {
+  .announce__backdrop,
+  .announce__dialog,
+  .announce--closing .announce__backdrop,
+  .announce--closing .announce__dialog {
+    animation: none !important;
+  }
+}
