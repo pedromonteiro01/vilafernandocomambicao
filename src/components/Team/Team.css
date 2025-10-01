@@ -34,6 +34,12 @@
   font-size: clamp(14px, 2.2vw, 17px);
 }
 
+.team-card__age {
+  font-size: 0.9rem;
+  color: #777;
+}
+
+
 /* Grid responsivo */
 .team__grid {
   margin: 24px 0 0;

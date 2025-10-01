@@ -16,23 +16,22 @@ import telmo from './Telmo Silva.jpg';
 import tiago from './Tiago Robalo.jpg';
 import tania from './tania.jpg';
 
-// ⚠️ Coloca as tuas imagens em /public/imagens/equipa/…
-// ou importa-as (ex.: import joao from './joao.jpg')
 const members = [
-  { name: "Joaquim Monteiro", role: "Reformado", photo: joaquim },
-  { name: "Paulo Saraiva", role: "Eng. Eletrotécnico",photo: paulo },
-  { name: "Patrícia Seixo", role: "Animadora Socio-cultural", photo: patricia },
-  { name: "Eunice dos Santos", role: "Assessora de Direção", photo: eunice },
-  { name: "Tiago Robalo", role: "Serralheiro", photo: tiago },
-  { name: "Fábio Martins", role: "Gestor", photo: fabio },
-  { name: "Tânia Carreira", role: "Educadora Social",photo: tania },
-  { name: "Telmo da Silva", role: "Empresário", photo: telmo },
-  { name: "Daniel Costa", role: "", photo: daniel },
-  { name: "Marina Marujo", role: "Empregada de Balcão", photo: marina },
-  { name: "Anibal Soares", role: "Operário de captação de água subterrânea", photo: anibal },
-  { name: "Rui dos Santos", role: "", photo: rui },
-  { name: "Lucinda Tomé", role: "", photo: lucinda },
+  { name: "Joaquim Monteiro", role: "Reformado", age: 62, photo: joaquim },
+  { name: "Paulo Saraiva", role: "Eng. Eletrotécnico", age: 47, photo: paulo },
+  { name: "Patrícia Seixo", role: "Animadora Socio-cultural", age: 38, photo: patricia },
+  { name: "Eunice dos Santos", role: "Assessora de Direção", age: 44, photo: eunice },
+  { name: "Tiago Robalo", role: "Serralheiro", age: 36, photo: tiago },
+  { name: "Fábio Martins", role: "Gestor", age: 40, photo: fabio },
+  { name: "Tânia Carreira", role: "Educadora Social", age: 37, photo: tania },
+  { name: "Telmo da Silva", role: "Empresário", age: 30, photo: telmo },
+  { name: "Daniel Costa", role: "", age: 28, photo: daniel },
+  { name: "Marina Marujo", role: "Empregada de Balcão", age: 30, photo: marina },
+  { name: "Anibal Soares", role: "Operário de captação de água subterrânea", age: 60, photo: anibal },
+  { name: "Rui dos Santos", role: "", age: 35, photo: rui },
+  { name: "Lucinda Tomé", role: "", age: 28, photo: lucinda },
 ];
+
 
 export default function Team() {
   const handleScroll = () => {
@@ -61,7 +60,6 @@ export default function Team() {
                   width="160"
                   height="160"
                   onError={(e) => {
-                    // fallback minimalista caso a imagem falhe
                     e.currentTarget.style.display = "none";
                     e.currentTarget.parentElement.classList.add("team-card__media--fallback");
                     e.currentTarget.parentElement.setAttribute("data-initials", getInitials(m.name));
@@ -69,6 +67,7 @@ export default function Team() {
                 />
               </div>
               <h3 className="team-card__name">{m.name}</h3>
+              {m.age && <p className="team-card__age">{m.age} anos</p>}
               <p className="team-card__role">{m.role}</p>
             </li>
           ))}
