@@ -124,10 +124,6 @@ export default function AnnouncementModal() {
             Falar connosco
           </button>
         </div>
-
-        <p className="announce__footnote" role="note">
-          (DEBUG) Este aviso aparece sempre ao entrar no site.
-        </p>
       </div>
     </div>
   );
