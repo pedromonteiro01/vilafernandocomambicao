@@ -82,13 +82,24 @@
   outline-offset: 3px;
 }
 
-/* Responsivo */
 @media (max-width: 720px) {
   .hero__container {
-    grid-template-columns: 1fr;
-    justify-items: start;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between; /* pushes title up and button down */
+    align-items: flex-start;
+    height: 100%; /* make container fill hero */
   }
+
+  .hero__title {
+    line-height: 1.5;
+  }
+
   .hero__action {
-    justify-content: flex-start;
+    width: 100%;
+    display: flex;
+    justify-content: center; /* center horizontally */
+    margin-top: auto;        /* pushes it to bottom */
   }
 }
+
