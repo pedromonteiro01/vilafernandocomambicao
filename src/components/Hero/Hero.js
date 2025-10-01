@@ -4,7 +4,7 @@ import vila from './vilafernando.jpg';
 
 export default function Hero({
   buttonText = "Saber mais",
-  title = "Pela Freguesia de Vila Fernando",
+  title = "Vila Fernando Com Ambição Vai Ganhar",
 }) {
 
   const handleScroll = () => {
@@ -13,6 +13,14 @@ export default function Hero({
       target.scrollIntoView({ behavior: "smooth" });
     }
   };
+
+  // 👉 separar a frase em partes
+  const formattedTitle = (
+    <>
+      Vila Fernando Com Ambição{" "}
+      <span className="hero__highlight">Vai Ganhar</span>
+    </>
+  );
 
   return (
     <section
@@ -23,7 +31,7 @@ export default function Hero({
     >
       <div className="hero__overlay" />
       <div className="hero__container">
-        <h1 className="hero__title">{title}</h1>
+        <h1 className="hero__title">{formattedTitle}</h1>
 
         <div className="hero__action">
           <button className="hero__button" onClick={handleScroll}>
