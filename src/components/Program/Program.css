@@ -4,6 +4,7 @@
   padding-block: clamp(32px, 6vw, 72px);
   color: #0b1220;
   background: #f6f8fb;
+  scroll-behavior: smooth;
 }
 
 /* fundo decorativo suave */
@@ -98,11 +99,12 @@
   font-size: clamp(26px, 4.6vw, 44px);
   line-height: 1.05;
   letter-spacing: -0.02em;
+  color: #FF6500;
 }
 
 .program__sub {
   margin: 6px 0 0;
-  color: #3b4962;
+  color: #00abe4;
   font-weight: 600;
   text-transform: uppercase;
   letter-spacing: .06em;
