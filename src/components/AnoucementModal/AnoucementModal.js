@@ -100,7 +100,7 @@ export default function AnnouncementModal() {
         </div>
 
         <header className="announce__header">
-          <span className="announce__eyebrow">Novidade</span>
+          <span className="announce__eyebrow">Importante</span>
           <h2 id="announce-title" className="announce__title">
             Compromisso por Vila Fernando
           </h2>
