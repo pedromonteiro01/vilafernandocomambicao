@@ -1,6 +1,6 @@
 import React, { useEffect, useRef, useState } from "react";
 import "./AnnouncementModal.css";
-import anoucement from "./anoucement.jpg";
+import anoucement from "./anoucement.webp";
 
 export default function AnnouncementModal() {
   const [open, setOpen] = useState(false);
