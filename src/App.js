@@ -1,4 +1,5 @@
 import './App.css';
+import ContactForm from './components/ContactForm/ContactForm';
 import Hero from './components/Hero/Hero';
 import Program from './components/Program/Program';
 
@@ -14,6 +15,7 @@ function App() {
         }}
       />
       <Program imageUrl="/imagens/programa-vila-fernando.jpg" />
+      <ContactForm />
     </div>
   );
 }

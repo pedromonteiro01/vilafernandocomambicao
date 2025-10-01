@@ -1,0 +1,108 @@
+.contact {
+  position: relative;
+  padding-block: clamp(32px, 6vw, 72px);
+  background: #f6f8fb;
+}
+
+.contact__wrap {
+  width: min(1000px, 95%);
+  margin-inline: auto;
+  background: rgba(255,255,255,0.95);
+  border: 1px solid #e1e6f0;
+  box-shadow: 0 14px 28px rgba(0,0,0,0.06);
+  padding: clamp(24px, 4vw, 40px);
+  border-radius: 0; /* cantos retos */
+  position: relative;
+  overflow: hidden;
+}
+
+/* linha decorativa laranja no topo */
+.contact__wrap::before {
+  content: "";
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 4px;
+  background: linear-gradient(90deg, #FF6500, #00ABE4);
+}
+
+.contact__header {
+  text-align: center;
+  margin-bottom: 24px;
+}
+
+.contact__title {
+  font-size: clamp(24px, 4vw, 36px);
+  font-weight: 700;
+  color: #FF6500;
+  margin: 0;
+}
+
+.contact__sub {
+  font-size: 15px;
+  color: #3b4962;
+  margin: 6px 0 0;
+}
+
+.contact__form {
+  display: grid;
+  gap: 18px;
+}
+
+.contact__field {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.contact__field label {
+  font-size: 14px;
+  font-weight: 600;
+  color: #0b1220;
+}
+
+.contact__field input,
+.contact__field textarea {
+  border: 1px solid #e1e6f0;
+  padding: 10px 12px;
+  font-size: 15px;
+  font-family: inherit;
+  color: #0b1220;
+  background: #fff;
+  transition: border-color .2s ease, box-shadow .2s ease;
+}
+
+.contact__field input:focus,
+.contact__field textarea:focus {
+  border-color: #FF6500;
+  outline: none;
+  box-shadow: 0 0 0 2px rgba(255,101,0,0.25);
+}
+
+.contact__field input::placeholder,
+.contact__field textarea::placeholder {
+  color: #999;       
+  font-weight: 200;  
+  opacity: 0.8;       
+}
+
+.contact__button {
+  appearance: none;
+  border: none;
+  padding: 12px 20px;
+  font-size: 16px;
+  font-weight: 700;
+  cursor: pointer;
+  background: #FF6500;
+  color: #fff;
+  transition: background .2s ease, transform .1s ease;
+  letter-spacing: .02em;
+}
+
+.contact__button:hover {
+  background: #e05a00;
+  transform: translateY(-1px);
+}
+
+.contact__button:active {
+  transform: translateY(0);
+}
