@@ -4,7 +4,7 @@ import Program from './components/Program/Program';
 
 function App() {
   return (
-    <div className="App">
+    <div>
       <Hero
         backgroundUrl="/imagens/vila-fernando.jpg" // ou deixe o default
         buttonText="Participar"

@@ -63,7 +63,6 @@
   padding: 14px 22px;
   font-size: clamp(14px, 1.8vw, 18px);
   font-weight: 700;
-  border-radius: 999px;
   background: rgba(255,255,255,0.92);
   color: #111;
   transition: transform 0.15s ease, box-shadow 0.15s ease, background 0.2s ease;
@@ -71,7 +70,6 @@
 }
 
 .hero__button:hover {
-  transform: translateY(-1px);
   box-shadow: 0 14px 28px rgba(0,0,0,0.22);
   background: #fff;
 }
