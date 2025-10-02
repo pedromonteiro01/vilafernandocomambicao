@@ -2,11 +2,63 @@ import React, { useEffect, useRef, useState } from "react";
 import "./AnnouncementModal.css";
 import anoucement from "./anoucement.webp";
 
+function getNextSundayAt16_30() {
+  const now = new Date();
+  const target = new Date(now);
+
+  const SUNDAY = 0;
+  const day = now.getDay();
+  let daysToAdd = (SUNDAY - day + 7) % 7;
+
+  // If it's Sunday but already past 16:30, go to next week
+  const alreadyPastToday =
+    daysToAdd === 0 &&
+    (now.getHours() > 16 ||
+      (now.getHours() === 16 &&
+        (now.getMinutes() >= 30 || now.getSeconds() > 0)));
+
+  if (alreadyPastToday) daysToAdd = 7;
+
+  target.setDate(now.getDate() + daysToAdd);
+  target.setHours(16, 30, 0, 0); // 16:30
+  return target;
+}
+
+
+function diffParts(to) {
+  const ms = Math.max(0, to.getTime() - Date.now());
+  const totalSeconds = Math.floor(ms / 1000);
+  const days = Math.floor(totalSeconds / 86400);
+  const hours = Math.floor((totalSeconds % 86400) / 3600);
+  const minutes = Math.floor((totalSeconds % 3600) / 60);
+  const seconds = totalSeconds % 60;
+  return { days, hours, minutes, seconds, done: ms === 0 };
+}
+
 export default function AnnouncementModal() {
   const [open, setOpen] = useState(false);
   const [closing, setClosing] = useState(false);
   const lastActiveElement = useRef(null);
   const dialogRef = useRef(null);
+
+  // 🕒 countdown
+  const [target, setTarget] = useState(() => getNextSundayAt16_30());
+  const [timeLeft, setTimeLeft] = useState(() => diffParts(getNextSundayAt16_30()));
+
+
+  useEffect(() => {
+    const id = setInterval(() => {
+      const parts = diffParts(target);
+      setTimeLeft(parts);
+      if (parts.done) {
+        // lock to the next occurrence once it hits zero (keeps ticking to next week)
+        const next = getNextSundayAt16_30();
+        setTarget(next);
+        setTimeLeft(diffParts(next));
+      }
+    }, 1000);
+    return () => clearInterval(id);
+  }, [target]);
 
   // DEBUG: abre sempre ao entrar
   useEffect(() => {
@@ -104,6 +156,27 @@ export default function AnnouncementModal() {
           <h2 id="announce-title" className="announce__title">
             Lanche Convívio
           </h2>
+          <p
+            className="announce__timer"
+            aria-live="polite"
+            aria-atomic="true"
+            role="status"
+          >
+            {timeLeft.days === 0 &&
+              timeLeft.hours === 0 &&
+              timeLeft.minutes === 0 &&
+              timeLeft.seconds === 0
+              ? "Começou! Domingo, 16h30min"
+              : (
+                <>
+                  Em{" "}
+                  <strong>
+                    {timeLeft.days}d {timeLeft.hours}h {timeLeft.minutes}m {timeLeft.seconds}s
+                  </strong>{" "}
+                  - Domingo, 16h30min
+                </>
+              )}
+          </p>
           <p id="announce-desc" className="announce__desc">
             Conheça as nossas propostas e deixe-nos a sua sugestão. A sua opinião
             é essencial para construirmos uma freguesia melhor. Não falte!

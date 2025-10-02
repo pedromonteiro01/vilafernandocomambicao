@@ -112,10 +112,10 @@
   border: 1px solid rgba(255,101,0,0.25);
   padding: 4px 8px;
   border-radius: 999px;
-  margin-bottom: 8px;
+  margin-bottom: 4px;
 }
 .announce__title {
-  margin: 6px 0 6px;
+  margin: 6px 0 0 0;
   font-weight: 800;
   font-size: clamp(20px, 3.8vw, 30px);
   color: #0b1220;
@@ -177,6 +177,15 @@
   color: #6b7894;
   font-size: 12px;
   border-top: 1px dashed #eef1f6;
+}
+
+.announce__timer {
+  margin: 0 0 10px 0;
+  font-size: 14px;
+  color: #0b1220;
+}
+.announce__timer strong {
+  font-variant-numeric: tabular-nums;
 }
 
 /* ===================== */
