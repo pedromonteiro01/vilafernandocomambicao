@@ -4,7 +4,7 @@ import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
 export default function ContactForm() {
-  const [form, setForm] = useState({ name: "", phone: "", message: "" });
+  const [form, setForm] = useState({ name: "", email: "", phone: "", message: "" });
   const [submitting, setSubmitting] = useState(false);
 
   const FORMSPREE_ENDPOINT = "https://formspree.io/f/xovkwqqy";
@@ -17,6 +17,11 @@ export default function ContactForm() {
   const validateForm = () => {
     if (form.name.trim().length < 3) {
       toast.error("O nome deve ter pelo menos 3 caracteres.");
+      return false;
+    }
+
+    if (!/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/i.test(form.email.trim())) {
+      toast.error("Introduza um email válido.");
       return false;
     }
 
@@ -54,7 +59,7 @@ export default function ContactForm() {
 
       if (res.ok) {
         toast.success("Mensagem enviada! Obrigado.");
-        setForm({ name: "", phone: "", message: "" }); // limpa
+        setForm({ name: "", email: "", phone: "", message: "" });
       } else {
         const data = await res.json().catch(() => ({}));
         const msg =
@@ -89,6 +94,20 @@ export default function ContactForm() {
               value={form.name}
               onChange={handleChange}
               placeholder="O seu nome"
+            />
+          </div>
+
+          <div className="contact__field">
+            <label htmlFor="email">* Email</label>
+            <input
+              type="email"
+              id="email"
+              name="email"
+              value={form.email}
+              onChange={handleChange}
+              placeholder="exemplo@gmail.com"
+              autoComplete="email"
+              required
             />
           </div>
 

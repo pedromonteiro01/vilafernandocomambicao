@@ -71,6 +71,10 @@
   transition: border-color .2s ease, box-shadow .2s ease;
 }
 
+.contact__field textarea {
+  resize: none;
+}
+
 .contact__field input:focus,
 .contact__field textarea:focus {
   border-color: #FF6500;
