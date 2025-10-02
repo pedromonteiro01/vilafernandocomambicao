@@ -84,7 +84,7 @@ background-image: url("vilafernando.webp");
 
 .hero__highlight {
   color: #FF6500;
-    font-family: "Shadows Into Light", cursive;
+    font-family: "Allura", cursive;
 
   font-size: clamp(28px, 5vw, 64px);
   font-weight: 400;
