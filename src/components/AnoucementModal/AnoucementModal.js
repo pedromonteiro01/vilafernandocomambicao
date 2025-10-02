@@ -173,7 +173,7 @@ export default function AnnouncementModal() {
                   <strong>
                     {timeLeft.days}d {timeLeft.hours}h {timeLeft.minutes}m {timeLeft.seconds}s
                   </strong>{" "}
-                  - Domingo, 16h30min
+                  <p>Domingo, 5 de outubro - 16h30min</p>
                 </>
               )}
           </p>
