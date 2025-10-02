@@ -1,0 +1,20 @@
+.footer {
+    width: 100vw;
+    text-align: center;
+    display: flex;
+    justify-content: center;
+    background-color: #fff;
+}
+
+.footer-image {
+    width: 50%;
+    height: auto;
+    object-fit: contain;
+    display: block;
+}
+
+@media (max-width: 720px) {
+    .footer-image {
+        width: 75%;
+    }
+}
