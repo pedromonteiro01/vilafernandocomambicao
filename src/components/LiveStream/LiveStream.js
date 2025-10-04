@@ -9,7 +9,7 @@ export default function Livestream({ videoId }) {
         <header className="livestream__header">
           <h2 className="livestream__title">Transmissão em Direto</h2>
           <p className="livestream__sub">
-            Acompanhe em tempo real a nossa apresentação.
+            Acompanhe em tempo real a nossa apresentação
           </p>
         </header>
 
@@ -22,6 +22,18 @@ export default function Livestream({ videoId }) {
             allowFullScreen
           ></iframe>
         </div>
+
+        {/* New message below video */}
+        <p className="livestream__alt">
+          Caso haja algum problema na transmissão, assista {" "}
+          <a
+            href={`https://www.youtube.com/watch?v=${videoId}`}
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+           aqui
+          </a>.
+        </p>
       </div>
     </section>
   );
