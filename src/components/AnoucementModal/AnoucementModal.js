@@ -2,6 +2,8 @@ import React, { useEffect, useRef, useState } from "react";
 import "./AnnouncementModal.css";
 import anoucement from "./anoucement.webp";
 
+const DEBUG = false;
+
 function getNextSundayAt16_30() {
   const now = new Date();
   const target = new Date(now);
@@ -10,7 +12,7 @@ function getNextSundayAt16_30() {
   const day = now.getDay();
   let daysToAdd = (SUNDAY - day + 7) % 7;
 
-  // If it's Sunday but already past 16:30, go to next week
+  // If it's Sunday but already past 16:30 today, go to next week
   const alreadyPastToday =
     daysToAdd === 0 &&
     (now.getHours() > 16 ||
@@ -20,10 +22,9 @@ function getNextSundayAt16_30() {
   if (alreadyPastToday) daysToAdd = 7;
 
   target.setDate(now.getDate() + daysToAdd);
-  target.setHours(16, 30, 0, 0); // 16:30
+  target.setHours(16, 30, 0, 0);
   return target;
 }
-
 
 function diffParts(to) {
   const ms = Math.max(0, to.getTime() - Date.now());
@@ -38,34 +39,41 @@ function diffParts(to) {
 export default function AnnouncementModal() {
   const [open, setOpen] = useState(false);
   const [closing, setClosing] = useState(false);
+  const [started, setStarted] = useState(false);
   const lastActiveElement = useRef(null);
   const dialogRef = useRef(null);
 
-  // 🕒 countdown
-  const [target, setTarget] = useState(() => getNextSundayAt16_30());
-  const [timeLeft, setTimeLeft] = useState(() => diffParts(getNextSundayAt16_30()));
+  // 🎯 Choose countdown target based on DEBUG
+  const [target] = useState(() => {
+    if (DEBUG) {
+      const now = new Date();
+      now.setSeconds(now.getSeconds() + 5); // ⏱️ only 15s for testing
+      return now;
+    }
+    return getNextSundayAt16_30();
+  });
 
+  const [timeLeft, setTimeLeft] = useState(() => diffParts(target));
 
   useEffect(() => {
     const id = setInterval(() => {
       const parts = diffParts(target);
       setTimeLeft(parts);
+
       if (parts.done) {
-        // lock to the next occurrence once it hits zero (keeps ticking to next week)
-        const next = getNextSundayAt16_30();
-        setTarget(next);
-        setTimeLeft(diffParts(next));
+        setStarted(true);
+        clearInterval(id); // stop here (don’t roll to next week)
       }
     }, 1000);
+
     return () => clearInterval(id);
   }, [target]);
 
-  // DEBUG: abre sempre ao entrar
+  // Open modal on mount
   useEffect(() => {
     lastActiveElement.current = document.activeElement;
     setOpen(true);
     document.body.style.overflow = "hidden";
-    // foca o conteúdo do modal
     setTimeout(() => dialogRef.current?.focus(), 0);
   }, []);
 
@@ -74,6 +82,7 @@ export default function AnnouncementModal() {
     setClosing(false);
     document.body.style.overflow = "";
     lastActiveElement.current?.focus?.();
+    setStarted(false);
   };
 
   const close = () => {
@@ -135,7 +144,6 @@ export default function AnnouncementModal() {
         ref={dialogRef}
         tabIndex={-1}
         onAnimationEnd={(e) => {
-          // só finaliza quando a animação da caixa termina (evita flicker)
           if (closing && e.target === dialogRef.current) finalizeClose();
         }}
       >
@@ -153,30 +161,26 @@ export default function AnnouncementModal() {
 
         <header className="announce__header">
           <span className="announce__eyebrow">Convite</span>
-          <h2 id="announce-title" className="announce__title">
-            Lanche Convívio
-          </h2>
-          <p
-            className="announce__timer"
-            aria-live="polite"
-            aria-atomic="true"
-            role="status"
-          >
-            {timeLeft.days === 0 &&
-              timeLeft.hours === 0 &&
-              timeLeft.minutes === 0 &&
-              timeLeft.seconds === 0
-              ? "Começou! Domingo, 16h30min"
-              : (
-                <>
+          <h2 id="announce-title" className="announce__title">Lanche Convívio</h2>
+
+          <div className="announce__timer" aria-live="polite" aria-atomic="true" role="status">
+            {started ? (
+              <p>
+                Apareça! Em breve estará disponível a apresentação em direto, aqui na nossa página!
+              </p>
+            ) : (
+              <>
+                <p>
                   Em{" "}
                   <strong>
                     {timeLeft.days}d {timeLeft.hours}h {timeLeft.minutes}m {timeLeft.seconds}s
-                  </strong>{" "}
-                  <p>Domingo, 5 de outubro - 16h30min</p>
-                </>
-              )}
-          </p>
+                  </strong>
+                </p>
+                <p>Domingo, 5 de outubro - 16h30min</p>
+              </>
+            )}
+          </div>
+
           <p id="announce-desc" className="announce__desc">
             Conheça as nossas propostas e deixe-nos a sua sugestão. A sua opinião
             é essencial para construirmos uma freguesia melhor. Não falte!
@@ -184,18 +188,30 @@ export default function AnnouncementModal() {
         </header>
 
         <div className="announce__actions">
-          <button
-            className="announce__btn announce__btn--primary"
-            onClick={() => scrollTo("programa")}
-          >
-            Ver Programa
-          </button>
-          <button
-            className="announce__btn announce__btn--ghost"
-            onClick={() => scrollTo("contact")}
-          >
-            Falar connosco
-          </button>
+          {started ? (
+            <button
+              className="announce__btn announce__btn--primary"
+              onClick={() => scrollTo("livestream")}
+              disabled
+            >
+              Ir para a Transmissão
+            </button>
+          ) : (
+            <>
+              <button
+                className="announce__btn announce__btn--primary"
+                onClick={() => scrollTo("programa")}
+              >
+                Ver Programa
+              </button>
+              <button
+                className="announce__btn announce__btn--ghost"
+                onClick={() => scrollTo("contact")}
+              >
+                Falar connosco
+              </button>
+            </>
+          )}
         </div>
       </div>
     </div>
