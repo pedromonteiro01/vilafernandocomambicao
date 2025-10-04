@@ -12,7 +12,7 @@ function App() {
     <div>
       <AnnouncementModal />
       <Hero />
-      <Livestream videoId="jfKfPfyJRdk" />
+      {/*<Livestream videoId="jfKfPfyJRdk" />*/}
       <Program />
       <Team />
       <ContactForm />

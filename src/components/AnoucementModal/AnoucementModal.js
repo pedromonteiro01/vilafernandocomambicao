@@ -2,8 +2,7 @@ import React, { useEffect, useRef, useState } from "react";
 import "./AnnouncementModal.css";
 import anoucement from "./anoucement.webp";
 
-// 🔧 Toggle this for testing
-const DEBUG = true;
+const DEBUG = false;
 
 function getNextSundayAt16_30() {
   const now = new Date();
@@ -167,7 +166,7 @@ export default function AnnouncementModal() {
           <div className="announce__timer" aria-live="polite" aria-atomic="true" role="status">
             {started ? (
               <p>
-                Aparece! Em breve estará, também, disponível uma livestream da apresentação aqui na nossa página!
+                Apareça! Em breve estará disponível a apresentação em direto, aqui na nossa página!
               </p>
             ) : (
               <>
@@ -193,6 +192,7 @@ export default function AnnouncementModal() {
             <button
               className="announce__btn announce__btn--primary"
               onClick={() => scrollTo("livestream")}
+              disabled
             >
               Ir para a Transmissão
             </button>
