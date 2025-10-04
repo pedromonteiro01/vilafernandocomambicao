@@ -2,7 +2,7 @@
 import React from "react";
 import "./LiveStream.css";
 
-export default function Livestream({ videoId }) {
+export default function Livestream({ channelName }) {
   return (
     <section id="livestream" className="livestream">
       <div className="livestream__wrap">
@@ -15,23 +15,22 @@ export default function Livestream({ videoId }) {
 
         <div className="livestream__video">
           <iframe
-            src={`https://www.youtube.com/embed/${videoId}?autoplay=0&rel=0`}
-            title="YouTube Livestream"
+            src={`https://player.twitch.tv/?channel=${channelName}&parent=${window.location.hostname}`}
+            title="Twitch Livestream"
             frameBorder="0"
-            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
             allowFullScreen
           ></iframe>
         </div>
 
-        {/* New message below video */}
+        {/* Fallback message */}
         <p className="livestream__alt">
           Caso haja algum problema na transmissão, assista {" "}
           <a
-            href={`https://www.youtube.com/watch?v=${videoId}`}
+            href={`https://www.twitch.tv/${channelName}`}
             target="_blank"
             rel="noopener noreferrer"
           >
-           aqui
+            aqui
           </a>.
         </p>
       </div>
