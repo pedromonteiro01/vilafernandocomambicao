@@ -12,7 +12,6 @@ function App() {
     <div>
       <AnnouncementModal />
       <Hero />
-      <Livestream channelName="vilafernandocomambicao" />
       <Program />
       <Team />
       <ContactForm />
