@@ -16,8 +16,9 @@ export default function Livestream({ channelName }) {
         <div className="livestream__video">
           <iframe
             src={`https://player.twitch.tv/?channel=${channelName}&parent=${window.location.hostname}`}
-            title="Twitch Livestream"
+            title="Apresentação da Lista - Freguesia de Vila Fernando"
             frameBorder="0"
+            allow="autoplay; fullscreen"
             allowFullScreen
           ></iframe>
         </div>
