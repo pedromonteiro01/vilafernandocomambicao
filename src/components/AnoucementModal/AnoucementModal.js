@@ -1,14 +1,17 @@
 import React, { useEffect, useRef, useState } from "react";
 import "./AnnouncementModal.css";
 
-import vf from './vf.webp';
-import qb from './qb.webp';
-import qc2 from './qc2.webp';
-import vm from './vm2.webp';
-import mc from './mc2.webp';
-import asm from './asm1.webp';
-import qm from './qm2.webp';
+import { IoIosArrowDropright, IoIosArrowDropleft } from "react-icons/io";
+import { FaArrowRight, FaArrowLeft } from "react-icons/fa6";
 
+
+import vf from "./vf.webp";
+import qb from "./qb.webp";
+import qc2 from "./qc2.webp";
+import vm from "./vm2.webp";
+import mc from "./mc2.webp";
+import asm from "./asm1.webp";
+import qm from "./qm2.webp";
 
 const IMAGES = [
   { src: vf, alt: "Vila Fernando" },
@@ -138,7 +141,8 @@ export default function AnnouncementModal() {
       if (dx > 40) prev();
       else if (dx < -40) next();
       startAuto();
-      startX = 0; dx = 0;
+      startX = 0;
+      dx = 0;
     };
 
     el.addEventListener("touchstart", onTouchStart, { passive: true });
@@ -205,22 +209,27 @@ export default function AnnouncementModal() {
             </div>
           </div>
 
+          {/* ✅ replaced text arrows with icons */}
           <button
             className="announce__nav announce__nav--prev"
             onClick={prev}
             aria-label="Imagem anterior"
           >
-            ‹
+            <FaArrowLeft />
           </button>
           <button
             className="announce__nav announce__nav--next"
             onClick={next}
             aria-label="Imagem seguinte"
           >
-            ›
+            <FaArrowRight />
           </button>
 
-          <div className="announce__dots" role="tablist" aria-label="Selecionar imagem">
+          <div
+            className="announce__dots"
+            role="tablist"
+            aria-label="Selecionar imagem"
+          >
             {IMAGES.map((_, i) => (
               <button
                 key={i}
@@ -237,9 +246,9 @@ export default function AnnouncementModal() {
         </div>
 
         <header className="announce__header">
-          <h2 id="announce-title" className="announce__title">Vila Fernando com Ambição</h2>
-
-          {/* ⛔ removed timer; simple static copy instead */}
+          <h2 id="announce-title" className="announce__title">
+            Vila Fernando com Ambição
+          </h2>
           <div id="announce-desc" className="announce__desc">
             Conheça as nossas propostas e deixe-nos a sua sugestão. A sua opinião
             é essencial para construirmos uma freguesia melhor.

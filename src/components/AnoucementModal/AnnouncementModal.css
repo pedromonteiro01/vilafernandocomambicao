@@ -130,7 +130,7 @@
   display: grid;
   place-items: center;
   cursor: pointer;
-  font-size: 22px;
+  font-size: 14px;
   line-height: 1;
   color: #0b1220;
   transition: background-color 0.25s ease;
