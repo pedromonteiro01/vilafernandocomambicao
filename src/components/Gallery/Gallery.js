@@ -13,7 +13,7 @@ export default function Gallery({
   title = "Freguesia de Vila Fernando",
   intro = (
     <>
-      Dia 12 vota <strong>PPD/PSD, CDS-PP, IL</strong>. Vota pela mudança. Vota por Vila Fernando. Com Ambição.
+      No dia 12 faz ouvir a tua voz. <br></br>Vota <strong>PPD/PSD, CDS-PP, IL</strong>.<br></br> <br></br>Juntos, vamos construir uma freguesia melhor para todos.<br></br> Vota pela mudança. Vota por Vila Fernando. <br></br> Com Ambição.
     </>
   ),
   featured = {
