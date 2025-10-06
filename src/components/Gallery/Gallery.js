@@ -1,12 +1,12 @@
 import React from "react";
 import "./Gallery.css";
-import vf from './vf (1).jpg';
-import qb from './qb.jpeg';
-import qc2 from './qc2.jpeg';
-import vm from './vm2.jpeg';
-import mc from './mc2.jpeg';
-import asm from './asm1.jpeg';
-import qm from './qm2.jpeg';
+import vf from './vf.webp';
+import qb from './qb.webp';
+import qc2 from './qc2.webp';
+import vm from './vm2.webp';
+import mc from './mc2.webp';
+import asm from './asm1.webp';
+import qm from './qm2.webp';
 
 export default function Gallery({
   id = "galeria",
