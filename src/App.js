@@ -11,7 +11,6 @@ import VideoSection from './components/VideoSection/VideoSection';
 function App() {
   return (
     <div>
-      <AnnouncementModal />
       <Hero />
       <VideoSection />
       <Gallery />
