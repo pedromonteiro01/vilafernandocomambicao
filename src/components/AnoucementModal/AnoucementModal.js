@@ -112,7 +112,6 @@ export default function AnnouncementModal() {
             src={promoVideo}
             playsInline
             autoPlay
-            muted
             controls
           />
         </div>

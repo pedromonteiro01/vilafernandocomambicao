@@ -31,7 +31,6 @@ export default function VideoSection({
             playsInline
             controls
             autoPlay
-            muted
             loop
           />
         </div>
