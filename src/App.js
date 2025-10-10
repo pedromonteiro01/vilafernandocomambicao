@@ -6,12 +6,14 @@ import Gallery from './components/Gallery/Gallery';
 import Hero from './components/Hero/Hero';
 import Program from './components/Program/Program';
 import Team from './components/Team/Team';
+import VideoSection from './components/VideoSection/VideoSection';
 
 function App() {
   return (
     <div>
       <AnnouncementModal />
       <Hero />
+      <VideoSection />
       <Gallery />
       <Program />
       <Team />

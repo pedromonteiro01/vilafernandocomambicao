@@ -1,3 +1,8 @@
+/* =====================================================
+   Announcement Modal (Video Version)
+   Clean version without carousel
+   ===================================================== */
+
 /* Overlay / root */
 .announce {
   position: fixed;
@@ -11,7 +16,7 @@
   outline: none;
 }
 
-/* Backdrop com fade */
+/* Backdrop with fade */
 .announce__backdrop {
   position: absolute;
   inset: 0;
@@ -19,195 +24,116 @@
   backdrop-filter: blur(2px);
   opacity: 0;
   animation: backdrop-in 280ms ease-out forwards;
-  z-index: 0; /* ✅ ensure behind dialog */
+  z-index: 0;
 }
 
-/* Janela / dialog */
+/* Modal window */
 .announce__dialog {
   position: relative;
   width: min(720px, 92vw);
   background: #fff;
-  box-shadow: 0 28px 80px rgba(0,0,0,0.22);
+  box-shadow: 0 28px 80px rgba(0, 0, 0, 0.22);
   overflow: hidden;
   display: grid;
   grid-template-columns: 1fr;
   gap: 0;
 
-  /* animação de entrada */
   will-change: transform, opacity;
   transform-origin: center;
-  animation: modal-in 420ms cubic-bezier(.22,1,.36,1) both;
-
-  z-index: 10; /* ✅ ensure above backdrop */
+  animation: modal-in 420ms cubic-bezier(0.22, 1, 0.36, 1) both;
+  z-index: 10;
 }
 
-/* Estados de fecho (animação de saída) */
+/* Closing states */
 .announce--closing .announce__backdrop {
   animation: backdrop-out 220ms ease-in forwards;
 }
 .announce--closing .announce__dialog {
-  animation: modal-out 220ms cubic-bezier(.55,.06,.68,.19) both;
+  animation: modal-out 220ms cubic-bezier(0.55, 0.06, 0.68, 0.19) both;
 }
 
-/* Botão fechar */
+/* Close button */
 .announce__close {
   position: absolute;
   top: 10px;
   right: 10px;
   appearance: none;
   border: none;
-  background: rgba(255,255,255,0.95); /* ✅ better contrast on images */
+  background: rgba(255, 255, 255, 0.95);
   backdrop-filter: blur(2px);
   color: #0b1220;
   width: 36px;
   height: 36px;
   border-radius: 50%;
-  box-shadow: 0 2px 10px rgba(0,0,0,0.12);
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.12);
   cursor: pointer;
   font-size: 16px;
-  z-index: 20; /* ✅ ensure always visible on top */
+  z-index: 20;
+  transition: background 0.2s ease, transform 0.1s ease;
+}
+.announce__close:hover {
+  background: #fff;
+  transform: scale(1.05);
 }
 
-/* ======= Carousel ======= */
-.announce__carousel {
-  position: relative;
+/* =====================================================
+   🎥 VIDEO PLAYER
+   ===================================================== */
+.announce__playerWrapper {
   width: 100%;
-  background: linear-gradient(135deg, #f6f8fb, #eceff4);
+  background: #000;
+  aspect-ratio: 16 / 9;
   overflow: hidden;
 }
 
-.announce__carousel-viewport {
+.announce__player {
   width: 100%;
   height: 100%;
-}
-
-.announce__carousel-track {
-  display: flex;
-  transition: transform 420ms cubic-bezier(.22,1,.36,1);
-  will-change: transform;
-}
-
-.announce__slide {
-  flex: 0 0 100%;
-  display: flex;
-  align-items: flex-end;   /* ✅ aligns image bottom */
-  justify-content: center;
-  max-height: 70vh;
-}
-
-.announce__slide img {
-  width: 70%;
-  height: auto;            /* ✅ maintain aspect ratio */
-  object-fit: cover;
-  object-position: bottom center; /* ✅ anchor to bottom */
   display: block;
-  user-select: none;
-  -webkit-user-drag: none;
+  border: 0;
+  object-fit: cover;
 }
 
-/* alturas responsivas */
-@media (min-width: 900px) {
-  .announce__slide { height: 480px; }
-}
-@media (max-width: 720px) {
-  .announce__slide { height: 340px; }
-}
+/* On very small screens, ensure good height */
 @media (max-width: 520px) {
-  .announce__slide { height: 260px; }
+  .announce__playerWrapper {
+    aspect-ratio: 16 / 9;
+  }
 }
 
-/* Nav arrows */
-.announce__nav {
-  position: absolute;
-  top: 50%;
-  transform: translateY(-50%);
-  width: 38px;
-  height: 38px;
-  border-radius: 50%;
-  border: 1px solid rgba(0,0,0,0.12);
-  background: rgba(255,255,255,0.9);
-  box-shadow: 0 2px 10px rgba(0,0,0,0.12);
-  display: grid;
-  place-items: center;
-  cursor: pointer;
-  font-size: 14px;
-  line-height: 1;
-  color: #0b1220;
-  transition: background-color 0.25s ease;
-  z-index: 15; /* ✅ above slides */
-}
-.announce__nav:hover {
-  background: #fff;
-}
-.announce__nav--prev { left: 10px; }
-.announce__nav--next { right: 10px; }
-
-/* Dots */
-.announce__dots {
-  position: absolute;
-  left: 0;
-  right: 0;
-  bottom: 8px;
-  display: flex;
-  gap: 8px;
-  justify-content: center;
-  align-items: center;
-  padding: 4px 0;
-  z-index: 15; /* ✅ above carousel images */
-}
-.announce__dot {
-  width: 9px;
-  height: 9px;
-  border-radius: 50%;
-  border: 1px solid rgba(0,0,0,0.25);
-  background: rgba(255,255,255,0.9);
-  padding: 0;
-  cursor: pointer;
-  transition: background-color 0.25s ease, border-color 0.25s ease;
-}
-.announce__dot.is-active {
-  background: #FF6500;
-  border-color: #FF6500;
-}
-
-/* ======= Conteúdo textual ======= */
+/* =====================================================
+   Text content
+   ===================================================== */
 .announce__header {
   padding: 18px clamp(16px, 3vw, 28px) 0;
   text-align: left;
 }
-.announce__eyebrow {
-  display: inline-block;
-  font-size: 12px;
-  font-weight: 800;
-  letter-spacing: .08em;
-  text-transform: uppercase;
-  color: #FF6500;
-  background: rgba(255,101,0,0.12);
-  border: 1px solid rgba(255,101,0,0.25);
-  padding: 4px 8px;
-  border-radius: 999px;
-  margin-bottom: 4px;
-}
+
 .announce__title {
   margin: 6px 0 0 0;
   font-weight: 800;
   font-size: clamp(20px, 3.8vw, 30px);
   color: #0b1220;
 }
+
 .announce__desc {
-  margin: 0;
+  margin: 8px 0 0 0;
   color: #3b4962;
   font-size: clamp(14px, 2.4vw, 17px);
   max-width: 65ch;
+  line-height: 1.5;
 }
 
-/* Ações */
+/* =====================================================
+   Buttons / Actions
+   ===================================================== */
 .announce__actions {
   display: flex;
   gap: 12px;
-  padding: 16px clamp(16px, 3vw, 28px) 8px;
+  padding: 16px clamp(16px, 3vw, 28px) 20px;
   flex-wrap: wrap;
 }
+
 .announce__btn {
   appearance: none;
   border: none;
@@ -215,42 +141,46 @@
   padding: 10px 14px;
   font-size: 15px;
   font-weight: 800;
-  letter-spacing: .01em;
+  letter-spacing: 0.01em;
+  border-radius: 0;
+  transition: background-color 0.25s ease, color 0.25s ease,
+    border-color 0.25s ease, box-shadow 0.25s ease;
 }
 
-/* Botão primário com transition suave */
+/* Primary button */
 .announce__btn--primary {
   color: #fff;
-  background: #FF6500;
-  box-shadow: 0 10px 24px rgba(0,0,0,0.12);
+  background: #ff6500;
+  box-shadow: 0 10px 24px rgba(0, 0, 0, 0.12);
   border: 1px solid transparent;
-  transition:
-    background-color 0.25s ease,
-    color 0.25s ease,
-    border-color 0.25s ease,
-    box-shadow 0.25s ease;
 }
 .announce__btn--primary:hover {
-  color: #FF6500;
+  color: #ff6500;
   background: #fff;
   border-color: #ccc;
-  box-shadow: 0 10px 24px rgba(0,0,0,0.18);
+  box-shadow: 0 10px 24px rgba(0, 0, 0, 0.18);
 }
 
-/* Botão secundário */
+/* Secondary (ghost) button */
 .announce__btn--ghost {
-  color: #FF6500;
+  color: #ff6500;
   background: #fff;
   border: 1px solid #ccc;
 }
+.announce__btn--ghost:hover {
+  background: #ffede0;
+}
 
+/* Disabled state */
 .announce__btn:disabled {
   opacity: 0.6;
   cursor: not-allowed;
   pointer-events: none;
 }
 
-/* Nota (se quiser usar no futuro) */
+/* =====================================================
+   Footer / note (optional)
+   ===================================================== */
 .announce__footnote {
   margin: 0;
   padding: 6px clamp(16px, 3vw, 28px) 18px;
@@ -259,28 +189,54 @@
   border-top: 1px dashed #eef1f6;
 }
 
-/* ===================== */
-/*     Keyframes         */
-/* ===================== */
+/* =====================================================
+   Animations
+   ===================================================== */
 @keyframes backdrop-in {
-  from { opacity: 0; }
-  to   { opacity: 1; }
-}
-@keyframes backdrop-out {
-  from { opacity: 1; }
-  to   { opacity: 0; }
-}
-@keyframes modal-in {
-  0%   { opacity: 0; transform: translateY(24px) scale(.985); }
-  60%  { opacity: 1; transform: translateY(0) scale(1.005); }
-  100% { opacity: 1; transform: translateY(0) scale(1); }
-}
-@keyframes modal-out {
-  0%   { opacity: 1; transform: translateY(0) scale(1); }
-  100% { opacity: 0; transform: translateY(10px) scale(.985); }
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
 }
 
-/* Respeita motion-reduce */
+@keyframes backdrop-out {
+  from {
+    opacity: 1;
+  }
+  to {
+    opacity: 0;
+  }
+}
+
+@keyframes modal-in {
+  0% {
+    opacity: 0;
+    transform: translateY(24px) scale(0.985);
+  }
+  60% {
+    opacity: 1;
+    transform: translateY(0) scale(1.005);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+@keyframes modal-out {
+  0% {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+  100% {
+    opacity: 0;
+    transform: translateY(10px) scale(0.985);
+  }
+}
+
+/* Respect prefers-reduced-motion */
 @media (prefers-reduced-motion: reduce) {
   .announce__backdrop,
   .announce__dialog,
@@ -290,7 +246,9 @@
   }
 }
 
-/* A11y helper (para elementos apenas visuais) */
+/* =====================================================
+   Accessibility helper (for screen readers)
+   ===================================================== */
 .sr-only {
   position: absolute !important;
   width: 1px;
@@ -298,12 +256,7 @@
   padding: 0;
   margin: -1px;
   overflow: hidden;
-  clip: rect(0,0,0,0);
+  clip: rect(0, 0, 0, 0);
   white-space: nowrap;
   border: 0;
-}
-
-/* 🔹 remove legacy image block */
-.announce__media {
-  display: none;
 }

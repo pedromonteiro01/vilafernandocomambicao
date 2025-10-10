@@ -1,40 +1,15 @@
 import React, { useEffect, useRef, useState } from "react";
 import "./AnnouncementModal.css";
-
-import { IoIosArrowDropright, IoIosArrowDropleft } from "react-icons/io";
-import { FaArrowRight, FaArrowLeft } from "react-icons/fa6";
-
-
-import vf from "./vf.webp";
-import qb from "./qb.webp";
-import qc2 from "./qc2.webp";
-import vm from "./vm2.webp";
-import mc from "./mc2.webp";
-import asm from "./asm1.webp";
-import qm from "./qm2.webp";
-
-const IMAGES = [
-  { src: vf, alt: "Vila Fernando" },
-  { src: vm, alt: "Vila Mendo" },
-  { src: mc, alt: "Monte Carreto" },
-  { src: asm, alt: "Aldeia de Santa Madalena" },
-  { src: qb, alt: "Quinta de Baixo" },
-  { src: qm, alt: "Quinta do Meio" },
-  { src: qc2, alt: "Quinta de Cima" },
-];
+import promoVideo from "./promo.mp4"; // 👈 your local hardcoded video (put it in the same folder)
 
 export default function AnnouncementModal() {
   const [open, setOpen] = useState(false);
   const [closing, setClosing] = useState(false);
   const lastActiveElement = useRef(null);
   const dialogRef = useRef(null);
+  const videoRef = useRef(null);
 
-  // 🔁 Carousel state
-  const [index, setIndex] = useState(0);
-  const slideRef = useRef(null);
-  const autoId = useRef(null);
-
-  // Open modal on mount
+  // 🟢 Open modal on mount
   useEffect(() => {
     lastActiveElement.current = document.activeElement;
     setOpen(true);
@@ -42,24 +17,6 @@ export default function AnnouncementModal() {
     setTimeout(() => dialogRef.current?.focus(), 0);
     return () => (document.body.style.overflow = "");
   }, []);
-
-  // Auto-advance (pause on focus/hover)
-  useEffect(() => {
-    startAuto();
-    return stopAuto;
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [index]);
-
-  const startAuto = () => {
-    stopAuto();
-    autoId.current = setInterval(() => {
-      setIndex((i) => (i + 1) % IMAGES.length);
-    }, 2000);
-  };
-  const stopAuto = () => {
-    if (autoId.current) clearInterval(autoId.current);
-    autoId.current = null;
-  };
 
   const finalizeClose = () => {
     setOpen(false);
@@ -71,9 +28,15 @@ export default function AnnouncementModal() {
   const close = () => {
     if (closing) return;
     setClosing(true);
+
+    // stop video playback instantly
+    if (videoRef.current) {
+      videoRef.current.pause();
+      videoRef.current.currentTime = 0;
+    }
   };
 
-  // ESC + focus trap
+  // ⌨️ Handle ESC + focus trap
   useEffect(() => {
     if (!open) return;
     const onKey = (e) => {
@@ -81,14 +44,8 @@ export default function AnnouncementModal() {
         e.preventDefault();
         close();
       }
-      if (e.key === "ArrowRight") {
-        e.preventDefault();
-        next();
-      }
-      if (e.key === "ArrowLeft") {
-        e.preventDefault();
-        prev();
-      }
+
+      // Focus trap
       if (e.key === "Tab" && dialogRef.current) {
         const focusables = dialogRef.current.querySelectorAll(
           'a, button, input, textarea, select, [tabindex]:not([tabindex="-1"])'
@@ -118,43 +75,6 @@ export default function AnnouncementModal() {
     if (el) el.scrollIntoView({ behavior: "smooth", block: "start" });
   };
 
-  // Carousel controls
-  const next = () => setIndex((i) => (i + 1) % IMAGES.length);
-  const prev = () => setIndex((i) => (i - 1 + IMAGES.length) % IMAGES.length);
-  const goTo = (i) => setIndex(i);
-
-  // Touch swipe
-  useEffect(() => {
-    const el = slideRef.current;
-    if (!el) return;
-    let startX = 0;
-    let dx = 0;
-
-    const onTouchStart = (e) => {
-      stopAuto();
-      startX = e.touches[0].clientX;
-    };
-    const onTouchMove = (e) => {
-      dx = e.touches[0].clientX - startX;
-    };
-    const onTouchEnd = () => {
-      if (dx > 40) prev();
-      else if (dx < -40) next();
-      startAuto();
-      startX = 0;
-      dx = 0;
-    };
-
-    el.addEventListener("touchstart", onTouchStart, { passive: true });
-    el.addEventListener("touchmove", onTouchMove, { passive: true });
-    el.addEventListener("touchend", onTouchEnd);
-    return () => {
-      el.removeEventListener("touchstart", onTouchStart);
-      el.removeEventListener("touchmove", onTouchMove);
-      el.removeEventListener("touchend", onTouchEnd);
-    };
-  }, []);
-
   if (!open) return null;
 
   return (
@@ -175,6 +95,7 @@ export default function AnnouncementModal() {
           if (closing && e.target === dialogRef.current) finalizeClose();
         }}
       >
+        {/* ❌ Close button */}
         <button
           className="announce__close"
           onClick={close}
@@ -183,66 +104,17 @@ export default function AnnouncementModal() {
           ✕
         </button>
 
-        {/* 🖼️ Carousel */}
-        <div
-          className="announce__carousel"
-          role="region"
-          aria-roledescription="carrossel"
-          onMouseEnter={stopAuto}
-          onMouseLeave={startAuto}
-        >
-          <div className="announce__carousel-viewport" ref={slideRef}>
-            <div
-              className="announce__carousel-track"
-              style={{ transform: `translateX(-${index * 100}%)` }}
-            >
-              {IMAGES.map((img, i) => (
-                <div className="announce__slide" key={i} aria-hidden={i !== index}>
-                  <img
-                    src={img.src}
-                    alt={img.alt}
-                    loading="lazy"
-                    draggable="false"
-                  />
-                </div>
-              ))}
-            </div>
-          </div>
-
-          {/* ✅ replaced text arrows with icons */}
-          <button
-            className="announce__nav announce__nav--prev"
-            onClick={prev}
-            aria-label="Imagem anterior"
-          >
-            <FaArrowLeft />
-          </button>
-          <button
-            className="announce__nav announce__nav--next"
-            onClick={next}
-            aria-label="Imagem seguinte"
-          >
-            <FaArrowRight />
-          </button>
-
-          <div
-            className="announce__dots"
-            role="tablist"
-            aria-label="Selecionar imagem"
-          >
-            {IMAGES.map((_, i) => (
-              <button
-                key={i}
-                role="tab"
-                aria-selected={i === index}
-                aria-controls={`slide-${i}`}
-                className={`announce__dot ${i === index ? "is-active" : ""}`}
-                onClick={() => goTo(i)}
-              >
-                <span className="sr-only">Ir para imagem {i + 1}</span>
-              </button>
-            ))}
-          </div>
+        {/* 🎥 Hardcoded local video */}
+        <div className="announce__playerWrapper">
+          <video
+            ref={videoRef}
+            className="announce__player"
+            src={promoVideo}
+            playsInline
+            autoPlay
+            muted
+            controls
+          />
         </div>
 
         <header className="announce__header">
@@ -250,8 +122,8 @@ export default function AnnouncementModal() {
             Vila Fernando com Ambição
           </h2>
           <div id="announce-desc" className="announce__desc">
-            Conheça as nossas propostas e deixe-nos a sua sugestão. A sua opinião
-            é essencial para construirmos uma freguesia melhor.
+            Conheça as nossas propostas e deixe-nos a sua sugestão.  
+            A sua opinião é essencial para construirmos uma freguesia melhor.
           </div>
         </header>
 
