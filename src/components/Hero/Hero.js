@@ -7,7 +7,7 @@ export default function Hero({
 }) {
 
   const handleScroll = () => {
-    const target = document.getElementById("programa");
+    const target = document.getElementById("video");
     if (target) {
       target.scrollIntoView({ behavior: "smooth" });
     }
