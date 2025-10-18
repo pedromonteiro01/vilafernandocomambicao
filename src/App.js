@@ -12,6 +12,7 @@ function App() {
   return (
     <div>
       <Hero />
+      <AnnouncementModal />
       <VideoSection />
       <Gallery />
       <Program />

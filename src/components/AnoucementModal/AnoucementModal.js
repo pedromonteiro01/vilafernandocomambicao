@@ -1,21 +1,72 @@
 import React, { useEffect, useRef, useState } from "react";
 import "./AnnouncementModal.css";
-import promoVideo from "./promo.mp4"; // 👈 your local hardcoded video (put it in the same folder)
+import anoucement from "./anoucement.webp";
+
+function getNextSundayAt16_30() {
+  const now = new Date();
+  const target = new Date(now);
+
+  const SUNDAY = 0;
+  const day = now.getDay();
+  let daysToAdd = (SUNDAY - day + 7) % 7;
+
+  // If it's Sunday but already past 16:30, go to next week
+  const alreadyPastToday =
+    daysToAdd === 0 &&
+    (now.getHours() > 16 ||
+      (now.getHours() === 16 &&
+        (now.getMinutes() >= 30 || now.getSeconds() > 0)));
+
+  if (alreadyPastToday) daysToAdd = 7;
+
+  target.setDate(now.getDate() + daysToAdd);
+  target.setHours(16, 30, 0, 0); // 16:30
+  return target;
+}
+
+
+function diffParts(to) {
+  const ms = Math.max(0, to.getTime() - Date.now());
+  const totalSeconds = Math.floor(ms / 1000);
+  const days = Math.floor(totalSeconds / 86400);
+  const hours = Math.floor((totalSeconds % 86400) / 3600);
+  const minutes = Math.floor((totalSeconds % 3600) / 60);
+  const seconds = totalSeconds % 60;
+  return { days, hours, minutes, seconds, done: ms === 0 };
+}
 
 export default function AnnouncementModal() {
   const [open, setOpen] = useState(false);
   const [closing, setClosing] = useState(false);
   const lastActiveElement = useRef(null);
   const dialogRef = useRef(null);
-  const videoRef = useRef(null);
 
-  // 🟢 Open modal on mount
+  // 🕒 countdown
+  const [target, setTarget] = useState(() => getNextSundayAt16_30());
+  const [timeLeft, setTimeLeft] = useState(() => diffParts(getNextSundayAt16_30()));
+
+
+  useEffect(() => {
+    const id = setInterval(() => {
+      const parts = diffParts(target);
+      setTimeLeft(parts);
+      if (parts.done) {
+        // lock to the next occurrence once it hits zero (keeps ticking to next week)
+        const next = getNextSundayAt16_30();
+        setTarget(next);
+        setTimeLeft(diffParts(next));
+      }
+    }, 1000);
+    return () => clearInterval(id);
+  }, [target]);
+
+  // DEBUG: abre sempre ao entrar
   useEffect(() => {
     lastActiveElement.current = document.activeElement;
     setOpen(true);
     document.body.style.overflow = "hidden";
+    // foca o conteúdo do modal
     setTimeout(() => dialogRef.current?.focus(), 0);
-    return () => (document.body.style.overflow = "");
   }, []);
 
   const finalizeClose = () => {
@@ -28,15 +79,9 @@ export default function AnnouncementModal() {
   const close = () => {
     if (closing) return;
     setClosing(true);
-
-    // stop video playback instantly
-    if (videoRef.current) {
-      videoRef.current.pause();
-      videoRef.current.currentTime = 0;
-    }
   };
 
-  // ⌨️ Handle ESC + focus trap
+  // ESC + focus trap
   useEffect(() => {
     if (!open) return;
     const onKey = (e) => {
@@ -44,8 +89,6 @@ export default function AnnouncementModal() {
         e.preventDefault();
         close();
       }
-
-      // Focus trap
       if (e.key === "Tab" && dialogRef.current) {
         const focusables = dialogRef.current.querySelectorAll(
           'a, button, input, textarea, select, [tabindex]:not([tabindex="-1"])'
@@ -69,13 +112,13 @@ export default function AnnouncementModal() {
     return () => window.removeEventListener("keydown", onKey);
   }, [open, closing]);
 
+  if (!open) return null;
+
   const scrollTo = (id) => {
     close();
     const el = document.getElementById(id);
     if (el) el.scrollIntoView({ behavior: "smooth", block: "start" });
   };
-
-  if (!open) return null;
 
   return (
     <div
@@ -92,10 +135,10 @@ export default function AnnouncementModal() {
         ref={dialogRef}
         tabIndex={-1}
         onAnimationEnd={(e) => {
+          // só finaliza quando a animação da caixa termina (evita flicker)
           if (closing && e.target === dialogRef.current) finalizeClose();
         }}
       >
-        {/* ❌ Close button */}
         <button
           className="announce__close"
           onClick={close}
@@ -104,26 +147,40 @@ export default function AnnouncementModal() {
           ✕
         </button>
 
-        {/* 🎥 Hardcoded local video */}
-        <div className="announce__playerWrapper">
-          <video
-            ref={videoRef}
-            className="announce__player"
-            src={promoVideo}
-            playsInline
-            autoPlay
-            controls
-          />
+        <div className="announce__media">
+          <img src={anoucement} alt="" aria-hidden="true" loading="lazy" />
         </div>
 
         <header className="announce__header">
+          <span className="announce__eyebrow">Convite</span>
           <h2 id="announce-title" className="announce__title">
-            Vila Fernando com Ambição
+            Lanche Convívio
           </h2>
-          <div id="announce-desc" className="announce__desc">
-            Conheça as nossas propostas e deixe-nos a sua sugestão.  
-            A sua opinião é essencial para construirmos uma freguesia melhor.
-          </div>
+          <p
+            className="announce__timer"
+            aria-live="polite"
+            aria-atomic="true"
+            role="status"
+          >
+            {timeLeft.days === 0 &&
+              timeLeft.hours === 0 &&
+              timeLeft.minutes === 0 &&
+              timeLeft.seconds === 0
+              ? "Começou! Domingo, 16h30min"
+              : (
+                <>
+                  Em{" "}
+                  <strong>
+                    {timeLeft.days}d {timeLeft.hours}h {timeLeft.minutes}m {timeLeft.seconds}s
+                  </strong>{" "}
+                  <p>Domingo, 5 de outubro - 16h30min</p>
+                </>
+              )}
+          </p>
+          <p id="announce-desc" className="announce__desc">
+            Conheça as nossas propostas e deixe-nos a sua sugestão. A sua opinião
+            é essencial para construirmos uma freguesia melhor. Não falte!
+          </p>
         </header>
 
         <div className="announce__actions">
